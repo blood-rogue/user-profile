@@ -25,6 +25,8 @@ import { z } from "zod";
 import { ROUTES } from "./routes";
 import { Textarea } from "@/components/ui/textarea";
 import { AxiosError } from "axios";
+import { useState } from "react";
+import { Eye, EyeOff } from "lucide-react";
 
 const formSchema = z
     .object({
@@ -81,6 +83,9 @@ export const Register: React.FC = () => {
             bio: "",
         },
     });
+
+    const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
     const navigate = useNavigate();
 
@@ -210,11 +215,40 @@ export const Register: React.FC = () => {
                             render={({ field }) => (
                                 <FormItem>
                                     <FormControl>
-                                        <Input
-                                            {...field}
-                                            placeholder="Password"
-                                            type="password"
-                                        />
+                                        <div className="relative">
+                                            <Input
+                                                {...field}
+                                                type={
+                                                    showPassword
+                                                        ? "text"
+                                                        : "password"
+                                                }
+                                                placeholder="Password"
+                                            />
+                                            <div className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 cursor-pointer">
+                                                {showPassword ? (
+                                                    <Eye
+                                                        size={18}
+                                                        strokeWidth={1.5}
+                                                        onClick={() =>
+                                                            setShowPassword(
+                                                                false
+                                                            )
+                                                        }
+                                                    />
+                                                ) : (
+                                                    <EyeOff
+                                                        size={18}
+                                                        strokeWidth={1.5}
+                                                        onClick={() =>
+                                                            setShowPassword(
+                                                                true
+                                                            )
+                                                        }
+                                                    />
+                                                )}
+                                            </div>
+                                        </div>
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
@@ -226,11 +260,40 @@ export const Register: React.FC = () => {
                             render={({ field }) => (
                                 <FormItem>
                                     <FormControl>
-                                        <Input
-                                            {...field}
-                                            placeholder="Confirm Password"
-                                            type="password"
-                                        />
+                                        <div className="relative">
+                                            <Input
+                                                {...field}
+                                                type={
+                                                    showConfirmPassword
+                                                        ? "text"
+                                                        : "password"
+                                                }
+                                                placeholder="Confirm Password"
+                                            />
+                                            <div className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 cursor-pointer">
+                                                {showConfirmPassword ? (
+                                                    <Eye
+                                                        size={18}
+                                                        strokeWidth={1.5}
+                                                        onClick={() =>
+                                                            setShowConfirmPassword(
+                                                                false
+                                                            )
+                                                        }
+                                                    />
+                                                ) : (
+                                                    <EyeOff
+                                                        size={18}
+                                                        strokeWidth={1.5}
+                                                        onClick={() =>
+                                                            setShowConfirmPassword(
+                                                                true
+                                                            )
+                                                        }
+                                                    />
+                                                )}
+                                            </div>
+                                        </div>
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>

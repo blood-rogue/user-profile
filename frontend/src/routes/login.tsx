@@ -23,6 +23,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { z } from "zod";
 import { ROUTES, STORAGE_KEYS } from "./routes";
+import { Eye, EyeOff } from "lucide-react";
+import { useState } from "react";
 
 const formSchema = z.object({
     username: z.string().min(4).max(150),
@@ -37,6 +39,8 @@ export const Login: React.FC = () => {
             password: "",
         },
     });
+
+    const [showPassword, setShowPassword] = useState(false);
 
     const navigate = useNavigate();
 
@@ -100,11 +104,40 @@ export const Login: React.FC = () => {
                             render={({ field }) => (
                                 <FormItem>
                                     <FormControl>
-                                        <Input
-                                            {...field}
-                                            placeholder="Password"
-                                            type="password"
-                                        />
+                                        <div className="relative">
+                                            <Input
+                                                {...field}
+                                                type={
+                                                    showPassword
+                                                        ? "text"
+                                                        : "password"
+                                                }
+                                                placeholder="Password"
+                                            />
+                                            <div className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 cursor-pointer">
+                                                {showPassword ? (
+                                                    <Eye
+                                                        size={18}
+                                                        strokeWidth={1.5}
+                                                        onClick={() =>
+                                                            setShowPassword(
+                                                                false
+                                                            )
+                                                        }
+                                                    />
+                                                ) : (
+                                                    <EyeOff
+                                                        size={18}
+                                                        strokeWidth={1.5}
+                                                        onClick={() =>
+                                                            setShowPassword(
+                                                                true
+                                                            )
+                                                        }
+                                                    />
+                                                )}
+                                            </div>
+                                        </div>
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
