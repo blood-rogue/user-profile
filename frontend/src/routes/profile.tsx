@@ -21,7 +21,6 @@ export const Profile: React.FC = () => {
         email: "",
         bio: "",
         dateJoined: "",
-        avatar: "",
     });
 
     const { userId } = useParams();
@@ -32,18 +31,19 @@ export const Profile: React.FC = () => {
             .catch((err) => {
                 if (err.response) {
                     toast.error("Invalid username");
-                    setProfile({
-                        username: "404",
-                        firstName: "Not",
-                        lastName: "Found",
-                        email: "error@404.com",
-                        bio: "This user could not be found",
-                        dateJoined: "Now",
-                        avatar: "https://avatars.githubusercontent.com/u/10137",
-                    });
                 } else {
                     toast.error("Network error");
                 }
+
+                setProfile({
+                    username: "Error",
+                    firstName: "Not",
+                    lastName: "Found",
+                    email: "error@404.com",
+                    bio: "This user could not be found",
+                    dateJoined: "Now",
+                    avatar: "https://avatars.githubusercontent.com/u/10137",
+                });
             });
     }, []);
 
@@ -59,7 +59,7 @@ export const Profile: React.FC = () => {
                         <AvatarFallback>
                             {`${profile.firstName
                                 .charAt(0)
-                                .toUpperCase()} ${profile.lastName
+                                .toUpperCase()}${profile.lastName
                                 .charAt(0)
                                 .toUpperCase()}`}
                         </AvatarFallback>

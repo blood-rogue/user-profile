@@ -37,7 +37,6 @@ export const Home: React.FC = () => {
         email: "",
         bio: "",
         dateJoined: "",
-        avatar: "",
     });
 
     const [id, setId] = useState("");

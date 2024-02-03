@@ -31,7 +31,7 @@ import { ROUTES } from "./routes";
 
 const formSchema = z
     .object({
-        avatar: z.custom<File>(),
+        avatar: z.custom<File>().optional(),
         username: z
             .string()
             .min(4)
@@ -53,13 +53,7 @@ const formSchema = z
             });
         }
 
-        if (typeof avatar === "undefined") {
-            ctx.addIssue({
-                code: "custom",
-                path: ["avatar"],
-                message: "Avatar is required",
-            });
-        } else if (avatar.size >= 1024 * 1024) {
+        if (typeof avatar !== "undefined" && avatar.size >= 1024 * 1024) {
             ctx.addIssue({
                 code: "too_big",
                 path: ["avatar"],
@@ -94,8 +88,11 @@ export const Register: React.FC = () => {
         const formData = new FormData();
 
         for (const [key, value] of Object.entries(values)) {
-            const modifiedKey = key.replace(/([A-Z])/g, "_$1").toLowerCase();
-            formData.append(modifiedKey, value);
+            if (typeof value !== "undefined")
+                formData.append(
+                    key.replace(/([A-Z])/g, "_$1").toLowerCase(),
+                    value,
+                );
         }
 
         toast.promise(auth.register(formData), {

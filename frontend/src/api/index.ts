@@ -5,7 +5,7 @@ export interface UserProfile {
     email: string;
     bio: string;
     dateJoined: string;
-    avatar: string;
+    avatar?: string;
 }
 
 export const API_URL = "http://localhost:8000/api";

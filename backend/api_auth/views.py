@@ -28,22 +28,26 @@ class RegisterView(APIView):
     parser_classes = [MultiPartParser, FormParser]
 
     def post(self, request: Request):
-        try:
-            print(type(request.data))
-            user = User(
-                username=request.data["username"],
-                email=request.data["email"],
-                first_name=request.data["first_name"],
-                last_name=request.data["last_name"],
-                avatar=request.data["avatar"],
-                bio=request.data["bio"],
-            )
-            user.set_password(request.data["password"])
-            user.save()
-        except Exception as e:
-            return Response(
-                {"detail": f"could not create user: {e}"},
-                status=status.HTTP_409_CONFLICT,
-            )
+        # print(request.data)
+        # try:
+        user = User(
+            username=request.data["username"],
+            email=request.data["email"],
+            first_name=request.data["first_name"],
+            last_name=request.data["last_name"],
+            bio=request.data["bio"],
+        )
 
+        if "avatar" in request.data:
+            user.avatar = request.data["avatar"]
+
+        user.set_password(request.data["password"])
+        user.save()
         return Response(status=status.HTTP_201_CREATED)
+
+    # except Exception as e:
+    #     print(e)
+    #     return Response(
+    #         {"detail": f"could not create user: {e}"},
+    #         status=status.HTTP_409_CONFLICT,
+    #     )
