@@ -1,4 +1,5 @@
-import axios, { AxiosResponse, AxiosError } from "axios";
+import axios, { AxiosError, AxiosResponse } from "axios";
+
 import { API_URL } from "./api";
 import { STORAGE_KEYS } from "./routes/routes";
 
@@ -6,13 +7,16 @@ let refresh = false;
 
 axios.interceptors.response.use(
     (resp: AxiosResponse) => {
-        resp.data = Object.entries(resp.data).reduce((acc, [key, value]) => {
-            const modifiedKey = key.replace(/_([a-z])/g, (g) =>
-                g[1].toUpperCase()
-            );
+        resp.data = Object.entries(resp.data).reduce(
+            (acc, [key, value]) => {
+                const modifiedKey = key.replace(/_([a-z])/g, (g) =>
+                    g[1].toUpperCase(),
+                );
 
-            return { ...acc, [modifiedKey]: value };
-        }, {} as { [key: string]: unknown });
+                return { ...acc, [modifiedKey]: value };
+            },
+            {} as { [key: string]: unknown },
+        );
 
         return resp;
     },
@@ -31,17 +35,16 @@ axios.interceptors.response.use(
                     headers: {
                         "Content-Type": "application/json",
                     },
-                }
+                },
             );
 
             if (response.status === 200) {
-                axios.defaults.headers.common[
-                    "Authorization"
-                ] = `Bearer ${response.data["access"]}`;
+                axios.defaults.headers.common["Authorization"] =
+                    `Bearer ${response.data["access"]}`;
                 localStorage.setItem(STORAGE_KEYS.access, response.data.access);
                 localStorage.setItem(
                     STORAGE_KEYS.refresh,
-                    response.data.refresh
+                    response.data.refresh,
                 );
 
                 return axios(error.config!);
@@ -50,5 +53,5 @@ axios.interceptors.response.use(
 
         refresh = false;
         return Promise.reject(error);
-    }
+    },
 );

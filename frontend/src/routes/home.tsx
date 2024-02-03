@@ -1,4 +1,22 @@
+import { AxiosError } from "axios";
+import { CalendarIcon, MailIcon } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "sonner";
+
 import { UserProfile, auth, user } from "@/api";
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+    AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
     Card,
@@ -8,24 +26,8 @@ import {
     CardHeader,
     CardTitle,
 } from "@/components/ui/card";
-import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { CalendarIcon, MailIcon } from "lucide-react";
-import { toast } from "sonner";
+
 import { ROUTES, STORAGE_KEYS } from "./routes";
-import {
-    AlertDialog,
-    AlertDialogTrigger,
-    AlertDialogAction,
-    AlertDialogCancel,
-    AlertDialogContent,
-    AlertDialogDescription,
-    AlertDialogTitle,
-    AlertDialogFooter,
-    AlertDialogHeader,
-} from "@/components/ui/alert-dialog";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { AxiosError } from "axios";
 
 export const Home: React.FC = () => {
     const [profile, setProfile] = useState<UserProfile>({
@@ -61,7 +63,7 @@ export const Home: React.FC = () => {
 
                     return "Deleted account successfully";
                 },
-            }
+            },
         );
     };
 
@@ -86,7 +88,7 @@ export const Home: React.FC = () => {
     return (
         <Card className="w-[350px]">
             <CardHeader>
-                <div className="flex flex-row justify-between items-center">
+                <div className="flex flex-row items-center justify-between">
                     <Avatar className="size-14">
                         <AvatarImage
                             src={profile.avatar}
@@ -100,7 +102,7 @@ export const Home: React.FC = () => {
                                 .toUpperCase()}`}
                         </AvatarFallback>
                     </Avatar>
-                    <div className="w-full flex flex-col items-start px-5 space-y-1">
+                    <div className="flex w-full flex-col items-start space-y-1 px-5">
                         <CardTitle>{`${profile.firstName} ${profile.lastName}`}</CardTitle>
                         <CardDescription>@{profile.username}</CardDescription>
                     </div>
@@ -120,7 +122,7 @@ export const Home: React.FC = () => {
                 <div>{profile.bio}</div>
             </CardContent>
             <CardFooter>
-                <div className="flex flex-row w-full justify-between">
+                <div className="flex w-full flex-row justify-between">
                     <AlertDialog>
                         <AlertDialogTrigger asChild>
                             <Button variant="outline">Delete</Button>

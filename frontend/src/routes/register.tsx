@@ -1,3 +1,12 @@
+import { zodResolver } from "@hookform/resolvers/zod";
+import { AxiosError } from "axios";
+import { Eye, EyeOff } from "lucide-react";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "sonner";
+import { z } from "zod";
+
 import { auth } from "@/api";
 import { Button } from "@/components/ui/button";
 import {
@@ -16,17 +25,9 @@ import {
     FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
-import { toast } from "sonner";
-
-import { z } from "zod";
-import { ROUTES } from "./routes";
 import { Textarea } from "@/components/ui/textarea";
-import { AxiosError } from "axios";
-import { useState } from "react";
-import { Eye, EyeOff } from "lucide-react";
+
+import { ROUTES } from "./routes";
 
 const formSchema = z
     .object({
@@ -136,7 +137,7 @@ export const Register: React.FC = () => {
                                                 field.onChange(
                                                     e.target.files
                                                         ? e.target.files[0]
-                                                        : null
+                                                        : null,
                                                 );
                                             }}
                                             type="file"
@@ -225,14 +226,14 @@ export const Register: React.FC = () => {
                                                 }
                                                 placeholder="Password"
                                             />
-                                            <div className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 cursor-pointer">
+                                            <div className="absolute inset-y-0 right-0 flex cursor-pointer items-center pr-3 text-gray-400">
                                                 {showPassword ? (
                                                     <Eye
                                                         size={18}
                                                         strokeWidth={1.5}
                                                         onClick={() =>
                                                             setShowPassword(
-                                                                false
+                                                                false,
                                                             )
                                                         }
                                                     />
@@ -242,7 +243,7 @@ export const Register: React.FC = () => {
                                                         strokeWidth={1.5}
                                                         onClick={() =>
                                                             setShowPassword(
-                                                                true
+                                                                true,
                                                             )
                                                         }
                                                     />
@@ -270,14 +271,14 @@ export const Register: React.FC = () => {
                                                 }
                                                 placeholder="Confirm Password"
                                             />
-                                            <div className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 cursor-pointer">
+                                            <div className="absolute inset-y-0 right-0 flex cursor-pointer items-center pr-3 text-gray-400">
                                                 {showConfirmPassword ? (
                                                     <Eye
                                                         size={18}
                                                         strokeWidth={1.5}
                                                         onClick={() =>
                                                             setShowConfirmPassword(
-                                                                false
+                                                                false,
                                                             )
                                                         }
                                                     />
@@ -287,7 +288,7 @@ export const Register: React.FC = () => {
                                                         strokeWidth={1.5}
                                                         onClick={() =>
                                                             setShowConfirmPassword(
-                                                                true
+                                                                true,
                                                             )
                                                         }
                                                     />

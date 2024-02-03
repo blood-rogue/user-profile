@@ -1,8 +1,10 @@
-import { auth } from "@/api";
-import { buttonVariants } from "@/components/ui/button";
 import axios from "axios";
 import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+
+import { auth } from "@/api";
+import { buttonVariants } from "@/components/ui/button";
+
 import { ROUTES, STORAGE_KEYS } from "./routes";
 
 export const Logout: React.FC = () => {

@@ -1,6 +1,8 @@
 import axios from "axios";
-import { API_URL } from ".";
+
 import { STORAGE_KEYS } from "@/routes/routes";
+
+import { API_URL } from ".";
 
 const register = async (user: FormData) =>
     await axios.post(`${API_URL}/auth/register`, user);
@@ -8,7 +10,7 @@ const register = async (user: FormData) =>
 const login = async (user: { username: string; password: string }) =>
     await axios.post<{ access: string; refresh: string }>(
         `${API_URL}/token`,
-        user
+        user,
     );
 
 const logout = async () =>

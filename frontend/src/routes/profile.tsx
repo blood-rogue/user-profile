@@ -1,4 +1,10 @@
+import { CalendarIcon, MailIcon } from "lucide-react";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { toast } from "sonner";
+
 import { UserProfile, user } from "@/api";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
     Card,
     CardContent,
@@ -6,11 +12,6 @@ import {
     CardHeader,
     CardTitle,
 } from "@/components/ui/card";
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { CalendarIcon, MailIcon } from "lucide-react";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { toast } from "sonner";
 
 export const Profile: React.FC = () => {
     const [profile, setProfile] = useState<UserProfile>({
@@ -49,7 +50,7 @@ export const Profile: React.FC = () => {
     return (
         <Card className="w-[350px]">
             <CardHeader>
-                <div className="flex flex-row justify-between items-center">
+                <div className="flex flex-row items-center justify-between">
                     <Avatar className="size-14">
                         <AvatarImage
                             src={profile.avatar}
@@ -63,7 +64,7 @@ export const Profile: React.FC = () => {
                                 .toUpperCase()}`}
                         </AvatarFallback>
                     </Avatar>
-                    <div className="w-full flex flex-col items-start px-5 space-y-1">
+                    <div className="flex w-full flex-col items-start space-y-1 px-5">
                         <CardTitle>{`${profile.firstName} ${profile.lastName}`}</CardTitle>
                         <CardDescription>@{profile.username}</CardDescription>
                     </div>
